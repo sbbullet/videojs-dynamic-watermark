@@ -5,6 +5,7 @@
   "main": "dist/videojs-dynamic-watermark.cjs.js",
   "module": "dist/videojs-dynamic-watermark.es.js",
   "browser": "dist/videojs-dynamic-watermark.js",
+  "repository": "https://github.com/sbbullet/videojs-dynamic-watermark",
   "generator-videojs-plugin": {
     "version": "8.0.0"
   },
