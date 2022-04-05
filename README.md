@@ -1,3 +1,22 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+
+
+- [videojs-dynamic-watermark](#videojs-dynamic-watermark)
+  - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
+  - [Installation](#installation-1)
+  - [Plugin Options](#plugin-options)
+    - [Default options](#default-options)
+    - [Options](#options)
+  - [Usage](#usage)
+    - [`<script>` Tag](#script-tag)
+    - [Browserify/CommonJS](#browserifycommonjs)
+    - [RequireJS/AMD](#requirejsamd)
+  - [License](#license)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # videojs-dynamic-watermark
 
 Displays text watermark over the VideoJS player and updates the position dynamically.
@@ -80,6 +99,27 @@ This is the simplest case. Get the script in whatever way you prefer and include
   });
 </script>
 ```
+
+**_Using image or other elements_**
+
+You can use image, svg or any other HTML element like a button (which if clicked goes to some url) as your watermark content simply by this tricky hack.
+
+```html
+<script src="//path/to/video.min.js"></script>
+<script src="//path/to/videojs-dynamic-watermark.min.js"></script>
+<script>
+  var player = videojs("my-video");
+
+  player.dynamicWatermark({
+    elementId: "unique_id",
+    watermarkText: "<img height='20' width='20' src='https://i.pravatar.cc' />",
+    changeDuration: 1000,
+    cssText:
+      "display: inline-block; color: grey; background-color: transparent; font-size: 1rem; z-index: 9999; position: absolute; @media only screen and (max-width: 992px){font-size: 0.8rem;}",
+  });
+</script>
+```
+
 
 ### Browserify/CommonJS
 
