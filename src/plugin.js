@@ -27,25 +27,36 @@ const createDyanmicWatermarkElement = (player, options) => {
 };
 
 const setRandomPosition = (player, element, options) => {
-  // const videoHeight = player.el().clientHeight;
-  const videoHeight = player.currentHeight();
-  // const videoWidth = player.el().clientWidth;
-  const videoWidth = player.currentWidth();
-  let startPosX = Math.floor(Math.random() * videoWidth);
+  const playerHeight = player.currentHeight();
+  const playerWidth = player.currentWidth();
+  const playerAspectRatio = playerWidth / playerHeight;
+  const videoAspectRatio = player.videoWidth() / player.videoHeight();
+  const watermarkEl = element.getBoundingClientRect();
 
-  if (startPosX > 200) {
-    startPosX = startPosX - 200;
+  var startPosX = 0;
+  var startPosY = 0;
+  if (videoAspectRatio > playerAspectRatio) {
+    let currentVideoHeight = playerWidth / videoAspectRatio;
+    let verticlePadding = (playerHeight - currentVideoHeight) / 2;
+    startPosX = Math.floor(Math.random() * (playerWidth - watermarkEl.width));
+    startPosY = Math.floor(
+      verticlePadding + Math.random() * (currentVideoHeight - verticlePadding)
+    );
+  } else if (videoAspectRatio < playerAspectRatio) {
+    let currentVideoWidth = playerHeight * videoAspectRatio;
+    let horizontalPadding = (playerWidth - currentVideoWidth) / 2;
+    startPosY = Math.floor(Math.random() * (playerHeight - watermarkEl.height));
+    startPosX = Math.floor(
+      horizontalPadding +
+        Math.random() * (currentVideoWidth - horizontalPadding)
+    );
+  } else {
+    startPosX = Math.floor(Math.random() * (playerWidth - watermarkEl.width));
+    startPosY = Math.floor(Math.random() * (playerHeight - watermarkEl.height));
   }
+  element.style.left = startPosX + "px";
+  element.style.top = startPosY + "px";
 
-  element.style.left = startPosX + 'px';
-
-  let startPosY = Math.floor(Math.random() * videoHeight);
-
-  if (startPosY > 60) {
-    startPosY = startPosY - 60;
-  }
-
-  element.style.top = startPosY + 'px';
 
   const timeout = setTimeout(function() {
     let dynamicWatermarkEl = window.document.getElementById(options.elementId);
