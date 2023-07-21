@@ -33,8 +33,8 @@ const setRandomPosition = (player, element, options) => {
   const videoAspectRatio = player.videoWidth() / player.videoHeight();
   const watermarkEl = element.getBoundingClientRect();
 
-  var startPosX = 0;
-  var startPosY = 0;
+  let startPosX = 0;
+  let startPosY = 0;
   if (videoAspectRatio > playerAspectRatio) {
     let currentVideoHeight = playerWidth / videoAspectRatio;
     let verticlePadding = (playerHeight - currentVideoHeight) / 2;
