@@ -35,25 +35,21 @@ const setRandomPosition = (player, element, options) => {
 
   let startPosX = 0;
   let startPosY = 0;
-  
+
   if (videoAspectRatio > playerAspectRatio) {
     const currentVideoHeight = playerWidth / videoAspectRatio;
     const verticlePadding = (playerHeight - currentVideoHeight) / 2;
 
     startPosX = Math.floor(Math.random() * (playerWidth - watermarkEl.width));
-    startPosY = Math.floor(
-      verticlePadding +
-        Math.random() * (currentVideoHeight - watermarkEl.height)
-    );
+    startPosY = Math.floor(verticlePadding +
+        Math.random() * (currentVideoHeight - watermarkEl.height));
   } else if (videoAspectRatio < playerAspectRatio) {
     const currentVideoWidth = playerHeight * videoAspectRatio;
     const horizontalPadding = (playerWidth - currentVideoWidth) / 2;
 
     startPosY = Math.floor(Math.random() * (playerHeight - watermarkEl.height));
-    startPosX = Math.floor(
-      horizontalPadding +
-        Math.random() * (currentVideoWidth - watermarkEl.width)
-    );
+    startPosX = Math.floor(horizontalPadding +
+        Math.random() * (currentVideoWidth - watermarkEl.width));
   } else {
     startPosX = Math.floor(Math.random() * (playerWidth - watermarkEl.width));
     startPosY = Math.floor(Math.random() * (playerHeight - watermarkEl.height));
