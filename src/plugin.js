@@ -35,17 +35,20 @@ const setRandomPosition = (player, element, options) => {
 
   let startPosX = 0;
   let startPosY = 0;
+  
   if (videoAspectRatio > playerAspectRatio) {
-    let currentVideoHeight = playerWidth / videoAspectRatio;
-    let verticlePadding = (playerHeight - currentVideoHeight) / 2;
+    const currentVideoHeight = playerWidth / videoAspectRatio;
+    const verticlePadding = (playerHeight - currentVideoHeight) / 2;
+
     startPosX = Math.floor(Math.random() * (playerWidth - watermarkEl.width));
     startPosY = Math.floor(
       verticlePadding +
         Math.random() * (currentVideoHeight - watermarkEl.height)
     );
   } else if (videoAspectRatio < playerAspectRatio) {
-    let currentVideoWidth = playerHeight * videoAspectRatio;
-    let horizontalPadding = (playerWidth - currentVideoWidth) / 2;
+    const currentVideoWidth = playerHeight * videoAspectRatio;
+    const horizontalPadding = (playerWidth - currentVideoWidth) / 2;
+
     startPosY = Math.floor(Math.random() * (playerHeight - watermarkEl.height));
     startPosX = Math.floor(
       horizontalPadding +
@@ -55,9 +58,8 @@ const setRandomPosition = (player, element, options) => {
     startPosX = Math.floor(Math.random() * (playerWidth - watermarkEl.width));
     startPosY = Math.floor(Math.random() * (playerHeight - watermarkEl.height));
   }
-  element.style.left = startPosX + "px";
-  element.style.top = startPosY + "px";
-
+  element.style.left = startPosX + 'px';
+  element.style.top = startPosY + 'px';
 
   const timeout = setTimeout(function() {
     let dynamicWatermarkEl = window.document.getElementById(options.elementId);
