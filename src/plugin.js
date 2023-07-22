@@ -27,24 +27,34 @@ const createDyanmicWatermarkElement = (player, options) => {
 };
 
 const setRandomPosition = (player, element, options) => {
-  // const videoHeight = player.el().clientHeight;
-  const videoHeight = player.currentHeight();
-  // const videoWidth = player.el().clientWidth;
-  const videoWidth = player.currentWidth();
-  let startPosX = Math.floor(Math.random() * videoWidth);
+  const playerHeight = player.currentHeight();
+  const playerWidth = player.currentWidth();
+  const playerAspectRatio = playerWidth / playerHeight;
+  const videoAspectRatio = player.videoWidth() / player.videoHeight();
+  const watermarkEl = element.getBoundingClientRect();
 
-  if (startPosX > 200) {
-    startPosX = startPosX - 200;
+  let startPosX = 0;
+  let startPosY = 0;
+
+  if (videoAspectRatio > playerAspectRatio) {
+    const currentVideoHeight = playerWidth / videoAspectRatio;
+    const verticlePadding = (playerHeight - currentVideoHeight) / 2;
+
+    startPosX = Math.floor(Math.random() * (playerWidth - watermarkEl.width));
+    startPosY = Math.floor(verticlePadding +
+        Math.random() * (currentVideoHeight - watermarkEl.height));
+  } else if (videoAspectRatio < playerAspectRatio) {
+    const currentVideoWidth = playerHeight * videoAspectRatio;
+    const horizontalPadding = (playerWidth - currentVideoWidth) / 2;
+
+    startPosY = Math.floor(Math.random() * (playerHeight - watermarkEl.height));
+    startPosX = Math.floor(horizontalPadding +
+        Math.random() * (currentVideoWidth - watermarkEl.width));
+  } else {
+    startPosX = Math.floor(Math.random() * (playerWidth - watermarkEl.width));
+    startPosY = Math.floor(Math.random() * (playerHeight - watermarkEl.height));
   }
-
   element.style.left = startPosX + 'px';
-
-  let startPosY = Math.floor(Math.random() * videoHeight);
-
-  if (startPosY > 60) {
-    startPosY = startPosY - 60;
-  }
-
   element.style.top = startPosY + 'px';
 
   const timeout = setTimeout(function() {
